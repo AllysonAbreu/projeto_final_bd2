@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapa</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="mapa.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div id="container">
+        <div class="topnav">
+            <a class="main" href="home.html">Home</a>
+            <a href="index.html">Adicionar</a>
+            <a href="sobre.html">Sobre os casos</a>
+            <a href="mapa.html">Ver mapa</a>
+        </div>
+        <form action="/pagina-processa-dados-do-form" method="post" id="form">
+            <div id="formcontent">
+                <label for="name">Nome:</label>
+                <input type="text" id="nome" />
+                <br>
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" />
+                <br>
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" />
+            </div>
+            <div>
+                <button id="submit" type="button" onclick="salvar()">Salvar</button>
+            </div>
+        </form>
+        <footer>Projeto Banco de Dados II - Patrick Anderson, Allyson Oliveira</footer>
+    </div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

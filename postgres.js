@@ -15,3 +15,48 @@ const client = new Client({
 client.connect()
     .then(()=> console.log('Conectado ao postgress!'))
     .catch(err => console.log(err.stack));
+
+//Função para adicionar um ponto do mapa no banco
+const addPonto = (request, response) =>{
+    const {nome, cpf, lat, lng, endereco} = request.body;
+  
+    const query = `INSERT INTO ponto (nome, cpf, localizacao, endereco) VALUES ('${nome}','${cpf}', ST_GeomFromText('POINT(${lat} ${lng})', '${endereco}'))`;
+  
+    client.query(query,(error, results) => {
+            if(error){
+                response.status(400).send(error);
+                console.log(error);
+                return;
+            }
+            response.status(200).send('Inserido');
+        });
+  };  
+  
+  //Função para pegar um ponto no banco
+  const getPontos = (request, response) =>{
+  
+    // SELECT ST_AsText(the_geom) FROM myTable;
+    const query = `SELECT ST_AsText(localizacao) as localizacao FROM ponto`
+  
+    client.query(query,(error, results) => {
+            if(error){
+                response.status(400).send(error);
+                console.log(error);
+                return;
+            }
+            let res = results.rows.map((row) => {
+                const latLong = row.localizacao.substring(6, row.localizacao.length - 1).split(' ');
+                const point = {
+                    lat: latLong[0],
+                    lng: latLong[1],
+                }
+                return point
+            })
+            response.status(200).json(res)
+        })
+    };
+  
+  module.exports = {
+    addPonto,
+    getPontos
+  };    
