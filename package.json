@@ -1,0 +1,30 @@
+{
+  "name": "projeto_final_bd2",
+  "version": "1.0.0",
+  "description": "Última nota da cadeira de banco de dados II.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllysonAbreu/projeto_final_bd2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AllysonAbreu/projeto_final_bd2/issues"
+  },
+  "homepage": "https://github.com/AllysonAbreu/projeto_final_bd2#readme",
+  "dependencies": {
+    "collect.js": "^4.28.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1",
+    "neo4j-driver": "^4.3.3",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.1"
+  }
+}
