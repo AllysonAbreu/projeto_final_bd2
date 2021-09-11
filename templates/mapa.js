@@ -30,16 +30,22 @@ function addMarker(evt){
     marker.setPosition(evt.latLng);
 }
 
-/* function salvar(){
+function salvar(){
 
     const obj = {
         nome: document.getElementById('nome').value,
-        cpf: document.getElementById('cpf').value,
+        cpf: document.getElementById('cpf').value,  
+        endereco: document.getElementById('endereco').value,      
         lat: marker.getPosition().lat(),
-        lng: marker.getPosition().lng()
+        lng: marker.getPosition().lng(),
     };
 
-    fetch("http://localhost:3000/pontos",{
+    /*const obj2 = {
+      cpf: document.getElementById('cpf').value,
+      info: document.getElementById('informacoes').value,
+    };*/
+
+    fetch("http://localhost:3000/postgres",{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -48,11 +54,21 @@ function addMarker(evt){
       body: JSON.stringify(obj)
     }).then(response =>{alert('Inserido!')})
     .catch(error => alert('Falha ao salvar!'));    
+  
+   /* fetch("http://localhost:3000/mongo",{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj2)
+      }).then(response =>{alert('Inserido!')})
+      .catch(error => alert('Falha ao salvar!'));  */
 
 }
 
 async function carregarMapa() {
-  fetch('http://localhost:3000/pontos').
+  fetch('http://localhost:3000/postgres').
   then(
     (resultado) => resultado.json()).
   then(
@@ -65,4 +81,4 @@ async function carregarMapa() {
         });
       })
   })
-}*/
+}
