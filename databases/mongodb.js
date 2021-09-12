@@ -18,8 +18,8 @@ async function addInformation(request, response){
     try{
         await cache.connect();
         const addInfo = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
-        const {cpf,text} = request.body;
-        await addInfo.insertOne({cpf,text})
+        const {cpf,info} = request.body;
+        await addInfo.insertOne({cpf,info})
         .then(result => response.status(200).send('Informação inserida'))
         .catch(error => response.status(400).send(error));
 
@@ -55,9 +55,21 @@ async function atualizarInfo(request, response){
         await cache.close();
     }
 }
-
+//Função para deletar informações
+async function delInfo(request, response){
+    try{
+        await cache.connect();
+        const delinfo = publicacao.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
+        const {filter} = request.body;
+        const result = await delinfo.deleteOne({filter});
+        response.send(`${result.deletedCount} informações removidas.`);
+    }finally{
+        await cache.close();
+    }
+}
 module.exports = {
     addInformation,
     getInfo,
-    atualizarInfo
+    atualizarInfo,
+    delInfo
 }

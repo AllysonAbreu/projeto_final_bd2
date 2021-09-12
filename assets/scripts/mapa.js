@@ -40,10 +40,10 @@ function salvar(){
         lng: marker.getPosition().lng(),
     };
 
-    /*const obj2 = {
+    const obj2 = {
       cpf: document.getElementById('cpf').value,
       info: document.getElementById('informacoes').value,
-    };*/
+    };
 
     fetch("http://localhost:3000/postgres",{
       method: 'POST',
@@ -53,9 +53,9 @@ function salvar(){
       },
       body: JSON.stringify(obj)
     }).then(response =>{alert('Inserido!')})
-    .catch(error => alert('Falha ao salvar!'));    
+    .catch(error => alert('Falha ao salvar!'));
   
-   /* fetch("http://localhost:3000/mongo",{
+   fetch("http://localhost:3000/mongo",{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -63,7 +63,7 @@ function salvar(){
         },
         body: JSON.stringify(obj2)
       }).then(response =>{alert('Inserido!')})
-      .catch(error => alert('Falha ao salvar!'));  */
+      .catch(error => alert('Falha ao salvar!'));
 
 }
 
