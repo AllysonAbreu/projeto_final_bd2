@@ -26,17 +26,18 @@ async function addInformation(request, response){
     }finally{
         await cache.close();
     }
-}
+}    
 
 //Função para retornar as informações de um paciente
 async function getInfo(request, response){
     try{
-        await cache.connect();
-        const verInfo = cache.db(`${process.env.MONGO_DATABASE}`);
-        const {cpf} = request.body;
-        const info = cache.collection('Cache');
-        const filter =  {cpf: cpf};
-        await info.find(filter).forEach(cache => response.send(cache));
+        await cache.connect()
+        const verInfo = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache')
+        const {cpf} = request.body
+        const filter =  {cpf: cpf}
+        await verInfo.find(filter).forEach(p => response.send(p))
+        .then(result => response.status(200).send('Busca concluída'))
+        .catch(error => response.status(400).send(error));
     } finally{
         await cache.close();
     }
