@@ -17,10 +17,11 @@ const neo4j = require('./databases/neo4j')
 
 app.post('/postgres', postgres.addPonto)
 app.get('/postgres', postgres.getPontos)
+app.delete('/postgres', postgres.delPonto)
 
 app.post('/mongo', mongodb.addInformation)
-app.put('/mongo', mongodb.atualizarInfo)
-app.get('/mongo', mongodb.getInfo)
+app.put('/mongo/:cpf/:info', mongodb.atualizarInfo)
+app.get('/mongo/:cpf', mongodb.getInfo)
 app.delete('/mongo', mongodb.delInfo)
 
 app.post('/neo', neo4j.addPaciente)

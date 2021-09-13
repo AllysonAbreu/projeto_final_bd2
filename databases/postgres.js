@@ -55,8 +55,24 @@ const addPonto = (request, response) =>{
             response.status(200).json(res)
         })
     };
-  
+
+    const delPonto = (request, response) =>{
+        const {cpf} = request.body;
+        
+        const query = `DELETE FROM ponto WHERE cpf = '${cpf}'`;
+      
+        client.query(query,(error, results) => {
+                if(error){
+                    response.status(400).send(error);
+                    console.log(error);
+                    return;
+                }
+                response.status(200).send('Deletado');
+            });
+      };
+
   module.exports = {
     addPonto,
-    getPontos
+    getPontos,
+    delPonto
   };    

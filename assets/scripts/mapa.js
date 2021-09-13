@@ -45,6 +45,10 @@ function salvar(){
       info: document.getElementById('informacoes').value,
     };
 
+    const obj3 = {
+      cpf: document.getElementById('cpf').value,
+    }
+
     fetch("http://localhost:3000/postgres",{
       method: 'POST',
       headers: {
@@ -62,6 +66,16 @@ function salvar(){
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(obj2)
+      }).then(response =>{alert('Inserido!')})
+      .catch(error => alert('Falha ao salvar!'));
+
+      fetch("http://localhost:3000/neo",{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj3)
       }).then(response =>{alert('Inserido!')})
       .catch(error => alert('Falha ao salvar!'));
 

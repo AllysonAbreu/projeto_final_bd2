@@ -33,11 +33,11 @@ async function getInfo(request, response){
     try{
         await cache.connect()
         const verInfo = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache')
-        const {cpf} = request.body
-        const filter =  {cpf: cpf}
-        await verInfo.find(filter).forEach(p => response.send(p))
-        .then(result => response.status(200).send('Busca concluída'))
-        .catch(error => response.status(400).send(error));
+        const {cpf} = request.params
+        console.log('REQUEST =>', {cpf});
+        const filter = {cpf: cpf};
+        const list = await verInfo.find(filter).toArray()
+        console.log(list[0].info)
     } finally{
         await cache.close();
     }
@@ -48,8 +48,11 @@ async function atualizarInfo(request, response){
     try{
         await cache.connect();
         const info = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
-        const {query, update} = request.body;
-        await info.updateOne({query, update})
+        const {querry} = request.params
+        const {update} = request.params
+        console.log("Querry==> ", {querry})
+        console.log("Update==> ", {update})
+        await info.updateOne({querry},{$set:{update}})
         .then(result => response.status(200).send('Informações atualizadas!'))
         .catch(error => response.status(400).send(error))
     }finally{
@@ -60,10 +63,10 @@ async function atualizarInfo(request, response){
 async function delInfo(request, response){
     try{
         await cache.connect();
-        const delinfo = publicacao.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
+        const delinfo = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
         const {filter} = request.body;
-        const result = await delinfo.deleteOne({filter});
-        response.send(`${result.deletedCount} informações removidas.`);
+        await delinfo.deleteOne({filter});
+        response.status(200).send("Informações removidas.");
     }finally{
         await cache.close();
     }

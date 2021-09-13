@@ -17,24 +17,20 @@ async function conectar (){
 conectar().then(console.log ("Conectado ao Neo4j!"));
 
 //Função para adicionar um paciente
-async function addPaciente(request, response){
-    const session = contato.session();
+async function addPaciente(request, response){    
     const {cpf} = request.body;
 
-    await session.run('CREATE (p:Pessoa{cpf:$cpf}) RETURN p',
-        {cpf: cpf})
-        .then(result => response.status(200).send('Paciente inserido!'))
+    await session.run(`CREATE (p:Pessoa{cpf:${cpf}}) RETURN p`)
+        .then(result => response.status(200).send('Paciente inserido!')) //console.log(result.records[0].length>0))
         .catch(error => response.status(400).send(error))
 }
 
 //Função para adicionar contato entre dois pacientes
 async function addContato(request, response){
-    const session = contato.session();
+    
     const {cpf1, cpf2} = request.body;
-
-    const query = 'MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=$cpf1 AND p2.cpf=$cpf2 CREATE (p1)-[:CONTATO]->(p2)';
-    await session.run(query,  
-        {cpf1: cpf1, cpf2:cpf2})
+        
+    await session.run(`MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p1)-[:CONTATO]->(p2)`)
         .then(result => response.status(200).send('Contato entre pacientes adicionado!'))
         .catch(error => response.status(400).send(error))
 }
