@@ -26,5 +26,4 @@ app.delete('/mongo', mongodb.delInfo)
 
 app.post('/neo', neo4j.addPaciente)
 app.post('/neo/:cpf1/:cpf2', neo4j.addContato)
-app.post('/neo/:cpf', neo4j.getContatoPaciente)
-app.delete('/neo/:cpf', neo4j.delPaciente)
+app.get('/neo/:cpf', neo4j.getContatoPaciente)

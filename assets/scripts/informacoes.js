@@ -35,22 +35,25 @@ function search(){
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }, 
-      }).then(response =>{alert('Realizando busca.')})
+      }).then(response => response.json())
+      .then((string) => alert(string))
       .catch(error => alert(error));
 }
 
 function update(){
 
-  const cpf = document.getElementById('cpf2').value
-  const info = document.getElementById('informacoes').value
-   
+  const obj = {
+    cpf: document.getElementById('cpf2').value,
+    info: document.getElementById('informacoes').value
+  }  
 
-  fetch(`http://localhost:3000/mongo/${cpf}/${info}`,{
+  fetch("http://localhost:3000/mongo/:cpf/:info",{
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-        },        
+        },
+        body: JSON.stringify(obj)
       }).then(response =>{alert('Realizando busca e atualizando.')})
       .catch(error => alert('Falha ao buscar!'));
 
@@ -63,7 +66,7 @@ function ligar(){
     cpf2: document.getElementById('cpf2').value
   }
 
-  fetch("http://localhost:3000/mongo/:cpf1/:cpf2",{
+  fetch("http://localhost:3000/neo/:cpf1/:cpf2",{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -73,4 +76,22 @@ function ligar(){
       }).then(response =>{alert('Realizando busca e atualizando.')})
       .catch(error => alert('Falha ao buscar!'));
 
+}
+
+
+function verContatos(){
+
+  const cpf3 = document.getElementById('cpf3').value
+
+  fetch(`http://localhost:3000/neo/${cpf3}`,{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },        
+      }).then(response => response.json())
+      .then((resultados) => {
+        resultados.forEach(resultado => alert(resultado.cpf))
+      })
+      .catch(error => alert('Falha ao buscar!'))
 }

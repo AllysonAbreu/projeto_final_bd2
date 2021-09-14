@@ -29,39 +29,38 @@ async function addPaciente(request, response){
 async function addContato(request, response){
     
     const {cpf1, cpf2} = request.body;
-        
-    await session.run(`MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p1)-[:CONTATO]->(p2)`)
+
+    console.log({cpf1,cpf2})
+    const query = `MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p1)-[c:CONTATO]->(p2)`;
+    console.log(query);
+    await session.run(`MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p1)-[c:CONTATO]->(p2)`)
         .then(result => response.status(200).send('Contato entre pacientes adicionado!'))
         .catch(error => response.status(400).send(error))
 }
 
 //Função para retornar todos as pessoas que um paciente teve contato
 async function getContatoPaciente(request, response){
-    const session = contato.session();
-    const {cpf} = request.body;
+    console.log(request.params)
 
-    const query = `MATCH (p:Pessoa{cpf:$cpf}) -[:CONTATO] -> (p2:Pessoa)          
-    RETURN p2.cpf as cpf`;
-    await session.run(query, 
-        {cpf: cpf})
-        .then(result =>  result.records.forEach(record => response.send(record.get('cpf'))))
-        .catch(error => response.status(400).send(error));
-} 
+    const {cpf} = request.params;
 
-//Função para excluir um paciente 
-async function delPaciente(request, response){
-    const session = contato.session();
-    const {cpf} = request.body;
-    const query = `MATCH (p:Pessoa{cpf:$cpf}) DETACH DELETE p`;
-    await session.run(query,
-        {cpf: cpf})
-        .then(result => response.status(200).send('Paciente deletado!'))
-        .catch(error => response.status(400).send(error))
+    console.log({cpf}) 
+    
+    await session.run(`MATCH (p:Pessoa {cpf: ${cpf}})-[c:CONTATO]->(p2:Pessoa) RETURN p2.cpf as cpf`)
+        .then(({records}) =>  {
+            const cpfs = records
+                .map(record => record.get('cpf'))
+                .map((cpf) => ({ cpf: cpf.low}));
+            response.send(cpfs);
+        })
+        .catch(error => {
+            console.log(error);
+            response.status(400).send(error)
+        });
 }
 
 module.exports = {
     addPaciente,
     addContato,
-    getContatoPaciente,
-    delPaciente,    
-};
+    getContatoPaciente       
+}

@@ -36,8 +36,10 @@ async function getInfo(request, response){
         const {cpf} = request.params
         console.log('REQUEST =>', {cpf});
         const filter = {cpf: cpf};
-        const list = await verInfo.find(filter).toArray()
-        console.log(list[0].info)
+        const list = await verInfo.find(filter).toArray() 
+        const string = list[0].info
+        console.log(string)
+        response.status(200).json(string)   
     } finally{
         await cache.close();
     }
@@ -47,12 +49,10 @@ async function getInfo(request, response){
 async function atualizarInfo(request, response){
     try{
         await cache.connect();
-        const info = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
-        const {querry} = request.params
-        const {update} = request.params
-        console.log("Querry==> ", {querry})
-        console.log("Update==> ", {update})
-        await info.updateOne({querry},{$set:{update}})
+        const atualizarInfo = cache.db(`${process.env.MONGO_DATABASE}`).collection('Cache');
+        const {cpf,info} = request.body       
+        console.log({cpf,info})
+        await atualizarInfo.updateOne({cpf},{$set:{info}})
         .then(result => response.status(200).send('Informações atualizadas!'))
         .catch(error => response.status(400).send(error))
     }finally{
