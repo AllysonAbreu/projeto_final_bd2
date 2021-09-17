@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+  <script src="../assets/scripts/informacoes.js"></script>
+  <title>Mais informações</title>
+</head>
+<body>    
+  <div id="container">    
+    <div class="topnav">
+        <a class="main" href="home.html">Home</a>
+        <a href="index.html">Adicionar</a>
+        <a href="sobre.html">Sobre os casos</a>
+        <a href="contato.html">Adicionar contato</a>
+        <a href="verContato.html">Visualizar contatos</a>    
+    </div>
+    <form action="/pagina-buscar-pacientes" method="GET" id="form">
+      <div id="formcontentsobre">
+        <label for="cpf">O paciente do CPF:</label>
+        <input type="text" id="cpf1" /> 
+        <p></p>
+        <label for="cpf">Teve contato com o paciente do CPF:</label>
+        <input type="text" id="cpf2" />       
+      </div>
+      <div>
+        <button id="submitsobre" type="reset" onclick= "ligar()">Teve contato</button>
+      </div>
+    </form>
+  </div>  
+</body>
+<footer>Projeto Banco de Dados II - Patrick Anderson, Allyson Oliveira e Milena Lins</footer> 
+</html>

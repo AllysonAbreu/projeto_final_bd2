@@ -12,41 +12,46 @@
         <a class="main" href="home.html">Home</a>
         <a href="index.html">Adicionar</a>
         <a href="sobre.html">Sobre os casos</a>
-        <a href="mapa.html">Ver mapa</a>
+        <a href="contato.html">Adicionar contato</a>
+        <a href="verContato.html">Visualizar contatos</a>
     </div>
-
     <form action="/pagina-buscar-pacientes" method="GET" id="form">
-      <div id="formcontent">
-        <label for="cpf">Informe o cpf do paciente:</label>
+      <div id="formcontentsobre">
+        <h3 id= "subtitle" >Ver situação do paciente</h3>
+        <label for="cpf">CPF:</label>
         <input type="text" id="cpf1" />        
       </div>
       <div>
-        <button id="submit" type="button" onclick="search()">Buscar</button>
+        <button id="submitsobre" type="reset" onclick="search()">Buscar</button>
       </div>
     </form>
 
     <form action="/pagina-atualizar-pacientes" method="POST" id="form">
-      <div id="formcontent">
-        <label for="cpf">Informe o cpf do paciente:</label>
+      <div id="formcontentsobre">
+      <h3 id= "subtitle" >Atualizar situação do paciente</h3>
+        <label for="cpf">CPF: :</label>
         <input type="text" id="cpf2" />
-        <label for="cpf">Atualize a situação do paciente:</label>
+        <label for="cpf">Nova situação:</label>
         <input type="text" id="informacoes" />
       </div>
       <div>
-        <button id="submit" type="button" onclick="update()">Atualizar</button>
+        <button id="submitsobre" type="reset" onclick="update()">Atualizar</button>
       </div>
     </form>
 
-    <form action="/pagina-apagar-pacientes" method="GET" id="form">
-      <div id="formcontent">
-        <label for="cpf">Informe o cpf do paciente:</label>
+    <form action="/pagina-apagar-pacientes" method="DELETE" id="form">
+      <div id="formcontentsobre">
+        <h3 id= "subtitle" >Apagar paciente</h3>
+        <label for="cpf">CPF:</label>
         <input type="text" id="cpf3" />        
       </div>
       <div>
-        <button id="submit" type="button" onclick="del()">Apagar informações</button>
+        <button id="submitsobre" type="reset" onclick="del()">Apagar informações</button>
       </div>
     </form>
-
-  </div>  
+    <p>d</p>
+    <p>d</p>
+  </div>
 </body>
+<footer>Projeto Banco de Dados II - Patrick Anderson, Allyson Oliveira e Milena Lins</footer> 
 </html>

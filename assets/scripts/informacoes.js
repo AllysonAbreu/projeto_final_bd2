@@ -41,7 +41,6 @@ function search(){
 }
 
 function update(){
-
   const obj = {
     cpf: document.getElementById('cpf2').value,
     info: document.getElementById('informacoes').value
