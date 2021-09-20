@@ -21,7 +21,7 @@ async function addPaciente(request, response){
     const {cpf} = request.body;
 
     await session.run(`CREATE (p:Pessoa{cpf:${cpf}}) RETURN p`)
-        .then(result => response.status(200).send('Paciente inserido!')) //console.log(result.records[0].length>0))
+        .then(result => response.status(200).send('Paciente inserido!'))
         .catch(error => response.status(400).send(error))
 }
 
@@ -36,6 +36,9 @@ async function addContato(request, response){
     await session.run(`MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p1)-[c:CONTATO]->(p2)`)
         .then(result => response.status(200).send('Contato entre pacientes adicionado!'))
         .catch(error => response.status(400).send(error))
+    await session.run(`MATCH (p1:Pessoa), (p2:Pessoa) WHERE p1.cpf=${cpf1} AND p2.cpf=${cpf2} CREATE (p2)-[c:CONTATO]->(p1)`)
+    .then(result => response.status(200).send('Contato entre pacientes adicionado!'))
+    .catch(error => response.status(400).send(error))
 }
 
 //Função para retornar todos as pessoas que um paciente teve contato
@@ -59,8 +62,21 @@ async function getContatoPaciente(request, response){
         });
 }
 
+async function delPaciente(request, response){
+    console.log(request.params)
+
+    const {cpf} = request.body;
+
+    console.log({cpf})     
+    await session.run(`MATCH (p:Pessoa{cpf:${cpf}}) DETACH DELETE p`,
+        {cpf: cpf})
+        .then(result => response.status(200).send('Paciente deletado!'))
+        .catch(error => response.status(400).send(error))
+} 
+
 module.exports = {
     addPaciente,
     addContato,
-    getContatoPaciente       
+    getContatoPaciente,
+    delPaciente    
 }

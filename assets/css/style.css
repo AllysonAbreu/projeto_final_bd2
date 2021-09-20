@@ -75,8 +75,12 @@ input {
   font-size: 16px;
   background-color: #eaeff4;
 }
+
 #nome,
 #cpf,
+#cpf1,
+#cpf2,
+#cpf3,
 #endereco,
 #informacoes {
   width: 80%;
@@ -85,6 +89,7 @@ input {
   border: none;
   border-bottom: 2px solid rgb(144, 142, 250);
 }
+
 #submit {
   font-size: 15px;
   cursor: pointer;

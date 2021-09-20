@@ -23,6 +23,16 @@ function del(){
         body: JSON.stringify(obj)
       }).then(response =>{alert('Realizando busca.')})
       .catch(error => alert('Falha ao buscar!'));
+    
+  fetch("http://localhost:3000/neo",{
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(obj)
+  }).then(response =>{alert('Realizando busca.')})
+  .catch(error => alert('Falha ao buscar!'));
 }
 
 function search(){
@@ -41,6 +51,7 @@ function search(){
 }
 
 function update(){
+
   const obj = {
     cpf: document.getElementById('cpf2').value,
     info: document.getElementById('informacoes').value
