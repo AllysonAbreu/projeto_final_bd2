@@ -9,12 +9,12 @@ function initMap() {
     zoom: 14,
   });
   
-  /*carregarMapa();*/
-  marker = new google.maps.Marker({
+  carregarMapa();
+  /*marker = new google.maps.Marker({
     map: map,
     position: center,
     draggable: true
-  });
+  });*/
   
   map.addListener("click", (evt) => {
     addMarker(evt);

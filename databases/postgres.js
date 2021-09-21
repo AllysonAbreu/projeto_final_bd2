@@ -18,9 +18,9 @@ client.connect()
 
 //Função para adicionar um ponto do mapa no banco
 const addPonto = (request, response) =>{
-    const {nome, cpf, endereco, lat, lng} = request.body;
+    const {nome, cpf, endereco, informacoes, lat, lng} = request.body;
   
-    const query = `INSERT INTO ponto (nome, cpf, endereco, localizacao) VALUES ('${nome}','${cpf}', '${endereco}', ST_GeomFromText('POINT(${lat} ${lng})'))`;
+    const query = `INSERT INTO ponto (nome, cpf, endereco, informacoes, localizacao) VALUES ('${nome}','${cpf}', '${endereco}', '${informacoes}', ST_GeomFromText('POINT(${lat} ${lng})'))`;
   
     client.query(query,(error, results) => {
             if(error){
